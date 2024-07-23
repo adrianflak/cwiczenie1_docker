@@ -37,18 +37,18 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
 
-    - name: Decode SSH key
-      run: echo "${{secrets.VPS_KEY}}" > /tmp/deploy_key.pem
+    # - name: Decode SSH key
+    #   run: echo "${{secrets.VPS_KEY}}" > /tmp/deploy_key.pem
 
-    - name: Permissons
-      run: chmod 600 /tmp/deploy_key.pem
+    # - name: Permissons
+    #   run: chmod 600 /tmp/deploy_key.pem
 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@master
       with: 
         host: ${{secrets.VPS_HOST}}
         username: ${{secrets.VPS_USER}}
-        key: /tmp/deploy_key.pem
+        key: ${{secrets.VPS_KEY}}
         port: ${{secrets.VPS_PORT}}
         script: |
           cd /home/kursant/docker
